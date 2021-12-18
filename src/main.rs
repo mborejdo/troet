@@ -1,7 +1,12 @@
 #[macro_use]
 extern crate clap;
 extern crate winrt_notification;
-use winrt_notification::{Duration, Sound, Toast};
+use winrt_notification::{
+    Duration,
+    Sound,
+    Toast,
+};
+
 use clap::{App, AppSettings, Arg, SubCommand};
 
 fn main() {
@@ -25,9 +30,11 @@ fn main() {
         let summary = matches.value_of("summary").unwrap();
         let body = matches.value_of("body").unwrap();
 
-        Toast::new("327f4cda-428e-414e-bc49-67a4789ecb92")
+        Toast::new(Toast::POWERSHELL_APP_ID)
             .title(summary)
             .text1(body)
+            .sound(Some(Sound::SMS))
+            .duration(Duration::Short)
             .show()
             .expect("unable to send notification");
         std::thread::sleep(std::time::Duration::new(2, 0));
