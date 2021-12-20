@@ -22,6 +22,7 @@ fn main() {
                             .required(true))
                     .arg( Arg::with_name("body")
                             .help("Message body")
+                            .multiple(true)
                             .required(true))
                             
                     )
@@ -30,7 +31,7 @@ fn main() {
     if let Some(matches) = matches.subcommand_matches("send") {
 
         let summary = matches.value_of("summary").unwrap();
-        let body = matches.value_of("body").unwrap();
+        let body = matches.value_of("body").unwrap().collect::<Vec<&str>>().join(" ");
 
         Toast::new(Toast::POWERSHELL_APP_ID)
             .title(summary)
