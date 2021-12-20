@@ -21,8 +21,9 @@ fn main() {
                             .help("Title of the Notification.")
                             .required(true))
                     .arg( Arg::with_name("body")
-                            .help("Message body"))
+                            .help("Message body")
                             .required(true))
+                            
                     )
         .get_matches();
 
