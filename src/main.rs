@@ -20,10 +20,6 @@ fn main() {
                     .arg( Arg::with_name("summary")
                             .help("Title of the Notification.")
                             .required(true))
-                    .arg( Arg::with_name("body")
-                            .help("Message body")
-                            .multiple(true)
-                            .required(true))
                             
                     )
         .get_matches();
@@ -31,7 +27,6 @@ fn main() {
     if let Some(matches) = matches.subcommand_matches("send") {
 
         let summary = matches.value_of("summary").unwrap();
-        // let body = matches.values_of("body").unwrap().collect::<Vec<&str>>().join(" ");
         let stdin = io::stdin();
         let body = stdin.lock().lines().next().unwrap().unwrap();
 
