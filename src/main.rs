@@ -6,7 +6,7 @@ use winrt_notification::{
     Sound,
     Toast,
 };
-
+use std::io::{self, BufRead};
 use clap::{App, AppSettings, Arg, SubCommand};
 
 fn main() {
@@ -31,7 +31,9 @@ fn main() {
     if let Some(matches) = matches.subcommand_matches("send") {
 
         let summary = matches.value_of("summary").unwrap();
-        let body = matches.values_of("body").unwrap().collect::<Vec<&str>>().join(" ");
+        // let body = matches.values_of("body").unwrap().collect::<Vec<&str>>().join(" ");
+        let stdin = io::stdin();
+        let body = stdin.lock().lines().next().unwrap().unwrap();
 
         Toast::new(Toast::POWERSHELL_APP_ID)
             .title(summary)
