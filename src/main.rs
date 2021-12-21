@@ -6,7 +6,6 @@ use winrt_notification::{
     Sound,
     Toast,
 };
-use std::io::{self, BufRead};
 use clap::{App, AppSettings, Arg, SubCommand};
 
 fn main() {
@@ -20,19 +19,24 @@ fn main() {
                     .arg( Arg::with_name("summary")
                             .help("Title of the Notification.")
                             .required(true))
+                    .arg( Arg::with_name("body")
+                            .help("Message body")
+                            .multiple(true)
+                            .required(true))
                             
                     )
         .get_matches();
 
     if let Some(matches) = matches.subcommand_matches("send") {
-
         let summary = matches.value_of("summary").unwrap();
-        let stdin = io::stdin();
-        let body = stdin.lock().lines().next().unwrap().unwrap();
+        let body = matches.values_of("body").unwrap().collect::<Vec<&str>>().join(" ");
+        // let stdin = io::stdin();
+        // let body = stdin.lock().lines().next().unwrap().unwrap();
 
         Toast::new(Toast::POWERSHELL_APP_ID)
             .title(summary)
-            .text1(&body)
+            // .text1(&body)
+            .text1(body)
             .sound(Some(Sound::SMS))
             .duration(Duration::Short)
             .show()
