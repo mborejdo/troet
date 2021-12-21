@@ -35,8 +35,7 @@ fn main() {
 
         Toast::new(Toast::POWERSHELL_APP_ID)
             .title(summary)
-            // .text1(&body)
-            .text1(body)
+            .text1(&body)
             .sound(Some(Sound::SMS))
             .duration(Duration::Short)
             .show()
