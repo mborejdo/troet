@@ -11,7 +11,7 @@ use clap::{App, AppSettings, Arg, SubCommand};
 fn main() {
     let matches = App::new("troet")
         .version(&crate_version!()[..])
-        .author("Michael Borejdo <mib@electronic-minds.de>")
+        .author("Michael Borejdo")
         .about("sending desktop notifications since 2020")
         .setting(AppSettings::ArgRequiredElseHelp)
         .subcommand(SubCommand::with_name("send")
